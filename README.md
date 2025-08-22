@@ -1,5 +1,7 @@
 Proyecto: Generador de Paletas de Colores
 
+Puedes probar la aplicación aquí: [Generador Paleta de Colores](https://soykam.github.io/Generador-paletas-de-colores/)
+
 1) Objetivo del proyecto
 - Construir una pequeña aplicación web para practicar y afianzar conceptos de HTML5, CSS3 y JavaScript aplicados a la generación y manipulación de colores.
 - Servir como material didáctico para entender estructura semántica, metodología BEM, delegación de eventos y uso de la API del portapapeles en navegadores modernos.
