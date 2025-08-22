@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Generador de Paletas de Colores</title>
+    <meta name="description" content="Genera paletas de 5 colores aleatorios, copia códigos HEX al portapapeles y renueva fácilmente." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="container app-header__inner">
+        <h1 class="app-header__title">Generador de Paletas de Colores</h1>
+        <button id="generateBtn" type="button" class="btn btn--primary btn--generate" aria-label="Generar nueva paleta de 5 colores">
+          Generar
+        </button>
+      </div>
+    </header>
+    <main class="app-main">
+      <section class="palette container" aria-label="Paleta de colores aleatorios">
+        <div id="paletteGrid" class="palette__grid" role="list">
+        </div>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <div class="container app-footer__inner">
+        <p class="app-footer__note">
+          Consejo: haz clic en cualquier código HEX para copiarlo al portapapeles.
+        </p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

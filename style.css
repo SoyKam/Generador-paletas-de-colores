@@ -1,0 +1,263 @@
+/* 
+  - Metodología BEM para nombres de clases.
+  - Diseño limpio y moderno usando CSS Grid y Flexbox.
+  - Sin librerías externas, con enfoque en accesibilidad y estados de interacción.
+*/
+
+/* Variables y resets básicos */
+
+:root {
+  /* Colores base de la interfaz */
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --text: #101828;
+  --muted: #475467;
+  --border: #e4e7ec;
+  --brand: #3b82f6;
+  --brand-contrast: #ffffff;
+
+  /* Tipografías del sistema para no depender de fuentes externas */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+
+  /* Espaciados y radios */
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 10px 30px rgba(16, 24, 40, 0.08);
+  --gap: 1.25rem;          /* 20px */
+  --gap-sm: 0.75rem;       /* 12px */
+  --container: 1200px;
+
+  /* Transiciones */
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --speed: 200ms;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: linear-gradient(180deg, #f9fafb 0%, var(--bg) 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utilidades y layout */
+
+.container {
+  width: min(100% - 2rem, var(--container));
+  margin-inline: auto;
+}
+
+/* Header */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.app-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0.5rem;
+}
+
+.app-header__title {
+  margin: 0;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Botones */
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.625rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform var(--speed) var(--ease), box-shadow var(--speed) var(--ease), background-color var(--speed) var(--ease);
+  will-change: transform;
+}
+
+.btn:focus-visible {
+  outline: 3px solid #bfdbfe;
+  outline-offset: 2px;
+}
+
+.btn--primary {
+  background: var(--brand);
+  color: var(--brand-contrast);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+}
+
+.btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.45);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+}
+
+/* Main / Paleta */
+
+.app-main {
+  padding: 1.25rem 0 2rem;
+}
+
+.palette {
+  display: block;
+}
+
+/* 
+  Grid responsivo:
+  - repeat(auto-fit, minmax(220px, 1fr)) permite que la cantidad de columnas
+    se adapte al ancho disponible, manteniendo elementos grandes.
+*/
+.palette__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--gap);
+}
+
+/* Ítems de color */
+
+/*
+  Cada ítem muestra:
+  - Un rectángulo grande (swatch) con el color de fondo.
+  - Un botón con el código HEX para copiar.
+  - Un mensaje "Copiado" temporal.
+*/
+.palette__item {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden; /* oculta desbordes del swatch redondeado */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Rectángulo grande del color */
+.palette__swatch {
+  /* Altura generosa para que el color sea protagonista */
+  height: 160px;
+  background: var(--swatch-color, #ddd);
+  /* Redondeo sólo arriba para integrarse con el contenedor */
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Contenedor inferior para el código */
+.palette__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-sm);
+  padding: 0.9rem 1rem;
+}
+
+/* Botón del código HEX */
+.palette__code {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  background: #f2f4f7;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+
+  transition: background-color var(--speed) var(--ease), transform var(--speed) var(--ease), box-shadow var(--speed) var(--ease);
+}
+
+.palette__code:hover {
+  background: #eaeef3;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(16,24,40,0.08);
+}
+
+.palette__code:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(16,24,40,0.06);
+}
+
+.palette__code-text {
+  user-select: none; /* evitamos selecciones involuntarias; el copiado lo hace JS */
+}
+
+/* Botón secundario opcional (por si se desea extender en el futuro) */
+.palette__action {
+  white-space: nowrap;
+}
+
+/* Mensaje "Copiado" */
+.palette__copied {
+  position: absolute;
+  inset: auto 1rem 1rem auto; /* esquina inferior derecha */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #16a34a;     /* verde éxito */
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: 0 10px 24px rgba(22, 163, 74, 0.35);
+
+  opacity: 0;
+  transform: translateY(6px) scale(0.98);
+  pointer-events: none;
+  transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease);
+}
+
+/* Estado visible del mensaje "Copiado" */
+.palette__copied--show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Footer */
+
+.app-footer {
+  padding: 1.25rem 0 2rem;
+  color: var(--muted);
+}
+
+.app-footer__note {
+  margin: 0;
+  font-size: 0.95rem;
+}
